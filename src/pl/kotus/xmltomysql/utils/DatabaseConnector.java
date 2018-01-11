@@ -19,7 +19,7 @@ public class DatabaseConnector {
             rsip.close();
             stip.close();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             x = 0;
         }
         return x;

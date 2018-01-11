@@ -2,6 +2,7 @@ package pl.kotus.xmltomysql.utils;
 
 import java.io.File;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import jxl.Cell;
@@ -55,7 +56,7 @@ public class Save implements Runnable {
                 try {
                     preparedStatement = DatabaseConnector.getConnection(login, password, database).prepareStatement(save);
                     preparedStatement.executeUpdate();
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     System.out.println("Błąd w zapoisywaniu do bazy danych " + e);
                     error.add("Błąd w zapoisywaniu do bazy danych " + e + "\n");
                 }

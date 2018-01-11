@@ -19,7 +19,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
     int check = 0;
 
-    Semafor sm = new Semafor();
     //pobieranie rozmiaru ekranu aby okno logowania pojawiało się na samym środku ekranu
     Dimension monitorSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -75,7 +74,7 @@ public class MainWindow extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("open")) {
             JFileChooser fc = new JFileChooser();
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                sm.setFile(fc.getSelectedFile());
+                Semafor.setFile(fc.getSelectedFile());
                 check = 1;
             }
         }
