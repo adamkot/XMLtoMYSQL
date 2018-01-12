@@ -26,10 +26,10 @@ public class DatabaseConnector {
     }
     private static Connection connection = null;
 
-    public static Connection getConnection(String login, String password, String baza) {
+    public static Connection getConnection(String login, String password, String baza, String ipAdress) {
         if (DatabaseConnector.connection == null) {
             //System.out.println("Nie ma jeszcze połączenia z bazą danych. Generuję nowe");
-            initConnection(login, password, baza);
+            initConnection(login, password, baza, ipAdress);
         } else {
             //System.out.println("Wykorzystanie istniejącej encji połączenia");
             int r = testSprawnosciPolaczenia();
@@ -41,7 +41,7 @@ public class DatabaseConnector {
                 } catch (SQLException ex) {
                     Logger.getLogger(DatabaseConnector.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                DatabaseConnector.initConnection(login, password, baza);
+                DatabaseConnector.initConnection(login, password, baza, ipAdress);
 
             } else {
                 //System.out.println("nie ma błędu w połączeniu");
@@ -50,11 +50,11 @@ public class DatabaseConnector {
         return DatabaseConnector.connection;
     }
 
-    private static void initConnection(String login, String password, String baza) {
+    private static void initConnection(String login, String password, String baza, String ipAdress) {
         try {
             System.out.println("Inicjalizacja polaczenia....");
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://188.116.4.117/" + baza + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=true";        //jdbc:mysql:///dbname?useUnicode=true&characterEncoding=utf-8
+            String url = "jdbc:mysql://" + ipAdress + "/" + baza + "?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=true";        //jdbc:mysql:///dbname?useUnicode=true&characterEncoding=utf-8
             String user = login;
             String pw = password;
             DatabaseConnector.connection

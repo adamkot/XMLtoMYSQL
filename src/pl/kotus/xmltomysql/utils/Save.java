@@ -18,14 +18,14 @@ public class Save implements Runnable {
 
     @Override
     public void run() {
-        save(sm.getLogin(), sm.getPassword(), sm.getBaza(), sm.getTableName(), sm.getFile());
+        save(sm.getLogin(), sm.getPassword(), sm.getBaza(), sm.getTableName(), sm.getIpAdress(), sm.getFile());
     }
 
-    public void save(String login, String password, String database, String table, File file) {
+    public void save(String login, String password, String database, String table, String ipAdress, File file) {
         String text = "";
 
         try {
-            delete(login, password, database, table);
+            delete(login, password, database, table, ipAdress);
             WorkbookSettings ustawienia = new WorkbookSettings();
             ustawienia.setEncoding("Cp1250");
             Workbook skoroszyt = Workbook.getWorkbook(file, ustawienia);
@@ -54,7 +54,7 @@ public class Save implements Runnable {
                 MainWindow.progress(i);
                 PreparedStatement preparedStatement = null;
                 try {
-                    preparedStatement = DatabaseConnector.getConnection(login, password, database).prepareStatement(save);
+                    preparedStatement = DatabaseConnector.getConnection(login, password, database, ipAdress).prepareStatement(save);
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {
                     System.out.println("Błąd w zapoisywaniu do bazy danych " + e);
@@ -72,12 +72,12 @@ public class Save implements Runnable {
         }
     }
 
-    private void delete(String login, String password, String database, String table) {
+    private void delete(String login, String password, String database, String table, String ipAdress) {
         System.out.println("Usuwam w bazie");
         String del = "delete from " + table;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = DatabaseConnector.getConnection(login, password, database).prepareStatement(del);
+            preparedStatement = DatabaseConnector.getConnection(login, password, database, ipAdress).prepareStatement(del);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Błąd w usuwaniu " + e);

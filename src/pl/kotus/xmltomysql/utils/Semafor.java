@@ -9,6 +9,7 @@ public class Semafor {
     private static String baza = "";
     private static String tableName = "";
     private static File file;
+    private static String ipAdress = "";
 
     /**
      * @return the login
@@ -79,6 +80,21 @@ public class Semafor {
     public static void setFile(File aFile) {
         file = aFile;
     }
+
+    /**
+     * @return the ipAdress
+     */
+    public static String getIpAdress() {
+        return ipAdress;
+    }
+
+    /**
+     * @param aIpAdress the ipAdress to set
+     */
+    public static void setIpAdress(String aIpAdress) {
+        ipAdress = aIpAdress;
+    }
     
-    
+
+   
 }
